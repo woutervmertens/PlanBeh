@@ -6,11 +6,18 @@
         xmlns:local="clr-namespace:PlanBeh"
         xmlns:vm="clr-namespace:PlanBeh.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="514.989" Width="677.975">
     <Window.Resources>
         <vm:NodeViewModel x:Key="NodeViewModel"/>
     </Window.Resources>
     <Grid>
-        
+        <Grid Height="20.709" VerticalAlignment="Top" Margin="0,0,130,0">
+            <ToolBar HorizontalAlignment="Left" Height="20.709" VerticalAlignment="Top" Width="519.975" Margin="10,0,0,0"/>
+        </Grid>
+        <Grid Margin="0,20.709,130,0">
+            <ListBox VerticalAlignment="Top" HorizontalContentAlignment="Stretch"/>
+        </Grid>
+        <Grid HorizontalAlignment="Right" Height="319" Margin="385.927,0,0,0" VerticalAlignment="Top" Width="130"/>
+
     </Grid>
 </Window>
