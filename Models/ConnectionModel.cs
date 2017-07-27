@@ -7,13 +7,14 @@ using System.Windows;
 
 namespace PlanBeh.Models
 {
-    public class Connector : DiagramObject
+    public class ConnectionModel : DiagramObject
     {
         public override BindablePoint Location
         {
             get { return new BindablePoint(); }
         }
-
+        public int InputID { get; set; }
+        public int OutPutID { get; set; }
         private Spot _start;
         public Spot Start
         {

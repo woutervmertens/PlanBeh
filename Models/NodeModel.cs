@@ -7,9 +7,20 @@ using System.Windows;
 
 namespace PlanBeh.Models
 {
-    public class Node : DiagramObject
+    public enum NodeType
     {
-        public Node()
+        AND,
+        OR,
+        NOT,
+        NAND,
+        NOR,
+        XOR,
+        XNOR
+    }
+
+    public class NodeModel : DiagramObject
+    {
+        public NodeModel()
         {
             Size.ValueChanged = RecalculateSnaps;
             Location.ValueChanged = RecalculateSnaps;
@@ -32,6 +43,11 @@ namespace PlanBeh.Models
         {
             get { return _size ?? (_size = new BindablePoint()); }
         }
-
+        public NodeType Type { get; set; }
+        public int ID { get; set; }
+        public string Description { get; set; }
+        public string IconPath { get; set; }
+        public Point Position { get; set; }
+        public string Name { get; set; }
     }
 }

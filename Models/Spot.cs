@@ -9,8 +9,8 @@ namespace PlanBeh.Models
 {
     public class Spot : DiagramObject
     {
-        private Node _parent;
-        public Node Parent
+        private NodeModel _parent;
+        public NodeModel Parent
         {
             get { return _parent; }
             set
@@ -46,7 +46,7 @@ namespace PlanBeh.Models
                 OnPropertyChanged("IsConnected");
             }
         }
-        public Spot(Node parent)
+        public Spot(NodeModel parent)
         {
             Parent = parent;
             Offset.ValueChanged = Recalculate;
