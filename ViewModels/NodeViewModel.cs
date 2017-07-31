@@ -144,6 +144,11 @@ namespace PlanBeh.ViewModels
             IncomingConnections.Add(Node);
         }
 
+        public void UpdateIsActive()
+        {
+            
+        }
+
         private Point StartDragPos = new Point();
         private Point StartPos = new Point();
         private bool IsDragging = false;

@@ -17,7 +17,7 @@ namespace PlanBeh.Views
     /// <summary>
     /// Interaction logic for ConnectionView.xaml
     /// </summary>
-    public partial class ConnectionView : Window
+    public partial class ConnectionView : UserControl
     {
         public ConnectionView()
         {

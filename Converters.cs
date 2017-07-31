@@ -12,7 +12,7 @@ using PlanBeh.Models;
 namespace PlanBeh
 {
     [ValueConversion(typeof(string), typeof(NodeModel))]
-    public class StringToLogicGateModelConverter : IValueConverter
+    public class StringToNodeModelConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -43,7 +43,7 @@ namespace PlanBeh
     }
 
     [ValueConversion(typeof(bool), typeof(SolidColorBrush))]
-    public class BoolToLogicGateActiveBrushConverter : IValueConverter
+    public class BoolToNodeActiveBrushConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

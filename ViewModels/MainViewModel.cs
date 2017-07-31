@@ -82,17 +82,6 @@ namespace PlanBeh.ViewModels
             }
         }
 
-        private ObservableCollection<NodeMenuViewModel> _menuItems;
-        public ObservableCollection<NodeMenuViewModel> MenuItems
-        {
-            get { return _menuItems; }
-            set
-            {
-                _menuItems = value;
-                OnPropertyChanged("MenuItems");
-            }
-        }
-
         private CompositeCollection _workspaceCollection;
         public CompositeCollection WorkSpaceCollection
         {
@@ -245,8 +234,8 @@ namespace PlanBeh.ViewModels
 
         void SaveXML()
         {
-            XmlSerializer xs = new XmlSerializer(typeof(LogicWorkSpace));
-            LogicWorkSpace tempWorkSpace = new LogicWorkSpace();
+            XmlSerializer xs = new XmlSerializer(typeof(WorkSpace));
+            WorkSpace tempWorkSpace = new WorkSpace();
 
             SaveFileDialog saveFileDialog = new SaveFileDialog();
 
@@ -275,8 +264,8 @@ namespace PlanBeh.ViewModels
 
         void LoadXML()
         {
-            XmlSerializer xs = new XmlSerializer(typeof(LogicWorkSpace));
-            LogicWorkSpace tempWorkSpace = new LogicWorkSpace();
+            XmlSerializer xs = new XmlSerializer(typeof(WorkSpace));
+            WorkSpace tempWorkSpace = new WorkSpace();
 
             OpenFileDialog openFileDialog = new OpenFileDialog();
 
@@ -287,7 +276,7 @@ namespace PlanBeh.ViewModels
             {
                 using (var fs = File.OpenRead(openFileDialog.FileName))
                 {
-                    tempWorkSpace = xs.Deserialize(fs) as LogicWorkSpace;
+                    tempWorkSpace = xs.Deserialize(fs) as WorkSpace;
                 }
 
                 WorkSpaceCollection = new CompositeCollection();
@@ -319,7 +308,6 @@ namespace PlanBeh.ViewModels
 
         public MainViewModel()
         {
-            MenuItems = new ObservableCollection<NodeMenuViewModel>();
             NodeCollection = new ObservableCollection<NodeViewModel>();
             ConnectionCollection = new ObservableCollection<ConnectionViewModel>();
 
@@ -328,23 +316,6 @@ namespace PlanBeh.ViewModels
 
             SaveCommand = new RelayCommand(SaveXML);
             LoadCommand = new RelayCommand(LoadXML);
-
-            string[] BasicBlocks = new[] { "AND", "OR", "NOT", "NAND", "NOR", "XOR", "XNOR" };
-            foreach (var logicName in BasicBlocks)
-            {
-                NodeMenuViewModel tempMaster = new NodeMenuViewModel();
-
-                NodeModel temp = new NodeModel();
-                temp.Name = logicName;
-                temp.IconPath = "../Icons/" + logicName + ".png";
-                temp.Type = (NodeType)Enum.Parse(typeof(NodeType), logicName);
-
-                tempMaster.Node = temp;
-                tempMaster.MainView = this;
-
-                MenuItems.Add(tempMaster);
-            }
-            ActiveNode = MenuItems[0].Node;
         }
         public event PropertyChangedEventHandler PropertyChanged;
 

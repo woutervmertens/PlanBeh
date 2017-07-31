@@ -1,16 +1,16 @@
-﻿<Window x:Class="PlanBeh.Views.ConnectionView"
+﻿<UserControl x:Class="PlanBeh.Views.ConnectionView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PlanBeh.Views"
+        xmlns:planbeh="clr-namespace:PlanBeh"
         mc:Ignorable="d"
-        Title="ConnectionView" Height="300" Width="300">
+        d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
-        <PlanBeh:BoolToConnectionActiveStroke x:Key="activeConv"/>
+        <planbeh:BoolToConnectionActiveStroke x:Key="activeConv"/>
     </UserControl.Resources>
 
     <Grid Width="{Binding WorkSpace.Width}" Height="{Binding WorkSpace.Height}">
         <Line X1="{Binding OriginNode.OutputPos.X}" Y1="{Binding OriginNode.OutputPos.Y}" X2="{Binding TargetNode.InputPos.X}" Y2="{Binding TargetNode.InputPos.Y}" Stroke="{Binding OriginNode.IsActive, Converter={StaticResource activeConv}}" StrokeThickness="4" />
     </Grid>
-</Window>
+</UserControl>

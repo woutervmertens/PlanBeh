@@ -76,6 +76,7 @@
     </ApplicationDefinition>
     <Compile Include="Converters.cs" />
     <Compile Include="Helpers.cs" />
+    <Compile Include="Models\WorkSpace.cs" />
     <Compile Include="Views\NodeView.xaml.cs">
       <DependentUpon>NodeView.xaml</DependentUpon>
     </Compile>
