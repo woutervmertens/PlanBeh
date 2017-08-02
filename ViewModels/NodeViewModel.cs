@@ -35,6 +35,17 @@ namespace PlanBeh.ViewModels
             }
         }
 
+        private Color _outlineColor;
+        public Color OutlineColor
+        {
+            get { return _outlineColor; }
+            set
+            {
+                _outlineColor = value;
+                OnPropertyChanged("OutlineColor");
+            }
+        }
+
         private bool _isActive;
         public bool IsActive
         {
@@ -43,17 +54,6 @@ namespace PlanBeh.ViewModels
             {
                 _isActive = value;
                 OnPropertyChanged("IsActive");
-            }
-        }
-
-        private ImageSource _iconSource;
-        public ImageSource IconSource
-        {
-            get { return _iconSource; }
-            set
-            {
-                _iconSource = value;
-                OnPropertyChanged("IconSource");
             }
         }
 
@@ -184,7 +184,7 @@ namespace PlanBeh.ViewModels
         {
             if (Node == null)
                 return;
-            IconSource = new BitmapImage(new Uri(Node.IconPath, UriKind.Relative));
+            OutlineColor = Node.GetColor((int)Node.Type);
         }
 
         public NodeViewModel()

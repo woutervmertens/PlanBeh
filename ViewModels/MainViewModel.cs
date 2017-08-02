@@ -155,7 +155,7 @@ namespace PlanBeh.ViewModels
             ActiveNode = obj;
         }
 
-        public RelayCommand<object> PlaceLogicNodeCommand { get; set; }
+        public RelayCommand<object> PlaceNodeCommand { get; set; }
         public RelayCommand PlaceConnectionCommand { get; set; }
 
         public RelayCommand StopConnectingCommand { get; set; }
@@ -163,7 +163,7 @@ namespace PlanBeh.ViewModels
         public RelayCommand SaveCommand { get; set; }
         public RelayCommand LoadCommand { get; set; }
 
-        public void PlaceLogicNode(object obj)
+        public void PlaceNode(object obj)
         {
             if (!BlockTrigger)
             {
@@ -311,7 +311,7 @@ namespace PlanBeh.ViewModels
             NodeCollection = new ObservableCollection<NodeViewModel>();
             ConnectionCollection = new ObservableCollection<ConnectionViewModel>();
 
-            PlaceLogicNodeCommand = new RelayCommand<object>(PlaceLogicNode);
+            PlaceNodeCommand = new RelayCommand<object>(PlaceNode);
             PlaceConnectionCommand = new RelayCommand(PlaceConnection);
 
             SaveCommand = new RelayCommand(SaveXML);

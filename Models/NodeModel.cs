@@ -4,18 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 
 namespace PlanBeh.Models
 {
     public enum NodeType
     {
-        AND,
-        OR,
-        NOT,
-        NAND,
-        NOR,
-        XOR,
-        XNOR
+        CONDITIONAL = 0,
+        ACTION,
+        SEQUENCE,
+        SELECTOR,
+        PARTIALSEQUENCE,
+        PARTIALSELECTOR,
+        PARALLEL,
+        PRIORITYLIST,
+        RANDOMSELECTOR,
+        RANDOMSEQUENCE
     }
 
     public class NodeModel : DiagramObject
@@ -35,6 +39,11 @@ namespace PlanBeh.Models
         public List<Spot> Snaps
         {
             get { return _snaps ?? (_snaps = new List<Spot>()); }
+        }
+
+        public Color GetColor(int nt)
+        {
+            return (Color)ColorConverter.ConvertFromString("#FF323232");
         }
 
         private Point originalSize;

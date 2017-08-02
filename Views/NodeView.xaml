@@ -1,4 +1,4 @@
-﻿<Window x:Class="PlanBeh.Views.NodeView"
+﻿<UserControl x:Class="PlanBeh.Views.NodeView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -9,11 +9,8 @@
         xmlns:planbeh="clr-namespace:PlanBeh"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
-        Title="NodeView" Height="300" Width="300">
+        d:DesignHeight="130" d:DesignWidth="150">
     <Grid x:Name="Root" Cursor="Hand">
-        <Grid.Resources>
-            <planbeh:BoolToNodeActiveBrushConverter x:Key="activeConv"/>
-        </Grid.Resources>
         <i:Interaction.Triggers>
             <i:EventTrigger EventName="MouseOver">
                 <i:InvokeCommandAction Command="{Binding SetSelectedLogicGate }" />
@@ -29,28 +26,27 @@
                 <i:InvokeCommandAction Command="{Binding StopDragCommand }" />
             </i:EventTrigger>
         </i:Interaction.Triggers>
-        <Border BorderThickness="2" BorderBrush="#FF00D1FF" CornerRadius="20" Background="{Binding IsActive,Converter={StaticResource activeConv}}" Width="100"/>
-        <Border Width="150" Height="50" BorderThickness="2" CornerRadius="20" Background="#FF323232">
+        <Border BorderThickness="2" BorderBrush="{Binding OutlineColor }" CornerRadius="10" Background="#FF323232" Width="75"/>
+        <Border Width="150" Height="100" BorderThickness="2" CornerRadius="10" Background="#FF323232">
             <Border.BorderBrush>
                 <LinearGradientBrush EndPoint="1,1" StartPoint="0,1">
-                    <GradientStop Color="#FF00D1FF" Offset="0.18"/>
+                    <GradientStop Color="{Binding OutlineColor }" Offset="0.18"/>
                     <GradientStop Color="#FF323232" Offset="0.184"/>
-                    <GradientStop Color="#FF00D1FF" Offset="0.828"/>
+                    <GradientStop Color="{Binding OutlineColor }" Offset="0.828"/>
                     <GradientStop Color="#FF323232" Offset="0.824"/>
+                    <GradientStop Color="{Binding OutlineColor }" Offset="0.937"/>
                 </LinearGradientBrush>
             </Border.BorderBrush>
         </Border>
 
-        <Image Source="{Binding IconSource}" Width="70" Height="70"/>
-
-        <Border BorderBrush="White" BorderThickness="1" CornerRadius="100" Width="30" Height="30" Margin="-100,0,0,0" Background="#FF323232">
+        <Border BorderBrush="White" BorderThickness="1" CornerRadius="100" Width="30" Height="30" Margin="0,-100,0,0" Background="#FF323232">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseUp">
                     <i:InvokeCommandAction Command="{Binding EndConnectionDragCommand }" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </Border>
-        <Border BorderBrush="White" BorderThickness="1" CornerRadius="100" Width="30" Height="30" Margin="100,0,0,0" Background="#FF323232">
+        <Border BorderBrush="White" BorderThickness="1" CornerRadius="100" Width="30" Height="30" Margin="0,100,0,0" Background="#FF323232">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDown">
                     <i:InvokeCommandAction Command="{Binding StartConnectionDragCommand }"/>
@@ -59,4 +55,4 @@
         </Border>
 
     </Grid>
-</Window>
+</UserControl>

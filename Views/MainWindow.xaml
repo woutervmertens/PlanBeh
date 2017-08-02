@@ -20,7 +20,7 @@
             <ItemsControl ItemsSource="{Binding Path=WorkSpaceCollection}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="{Binding ActualWidth, ElementName=ConsoleWrapper}" Height="{Binding ActualHeight, ElementName=MainViewContainer}" Background="#FF3E3E3E" IsHitTestVisible="True">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDown">
-                        <i:InvokeCommandAction Command="{Binding PlaceLogicNodeCommand}" CommandParameter="{Binding ElementName=WorkSpace}" />
+                        <i:InvokeCommandAction Command="{Binding PlaceNodeCommand}" CommandParameter="{Binding ElementName=WorkSpace}" />
                     </i:EventTrigger>
                     <i:EventTrigger EventName="MouseUp">
                         <i:InvokeCommandAction Command="{Binding StopConnectingCommand}"/>
