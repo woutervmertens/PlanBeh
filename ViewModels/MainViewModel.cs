@@ -163,6 +163,10 @@ namespace PlanBeh.ViewModels
         public RelayCommand SaveCommand { get; set; }
         public RelayCommand LoadCommand { get; set; }
 
+        public RelayCommand EditCommand { get; set; }
+        public RelayCommand AddCommand { get; set; }
+        public RelayCommand DeleteCommand { get; set; }
+
         public void PlaceNode(object obj)
         {
             if (!BlockTrigger)
@@ -306,6 +310,21 @@ namespace PlanBeh.ViewModels
             UpdateActivities();
         }
 
+        void OpenEditWindow()
+        {
+
+        }
+
+        void OpenAddWindow()
+        {
+
+        }
+
+        void DeleteSelectedNode()
+        {
+
+        }
+
         public MainViewModel()
         {
             NodeCollection = new ObservableCollection<NodeViewModel>();
@@ -316,7 +335,12 @@ namespace PlanBeh.ViewModels
 
             SaveCommand = new RelayCommand(SaveXML);
             LoadCommand = new RelayCommand(LoadXML);
+
+            EditCommand = new RelayCommand(OpenEditWindow);
+            AddCommand = new RelayCommand(OpenAddWindow);
+            DeleteCommand = new RelayCommand(DeleteSelectedNode);
         }
+            
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]

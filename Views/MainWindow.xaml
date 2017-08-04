@@ -13,11 +13,27 @@
         <vm:NodeViewModel x:Key="NodeViewModel"/>
     </Window.Resources>
     <Grid>
-        <Grid Height="20.709" VerticalAlignment="Top" Margin="0,0,130,0">
-            <ToolBar HorizontalAlignment="Left" Height="20.709" VerticalAlignment="Top" Width="519.975" Margin="10,0,0,0"/>
-        </Grid>
-        <Grid Margin="0,20.709,130,0">
-            <ItemsControl ItemsSource="{Binding Path=WorkSpaceCollection}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="{Binding ActualWidth, ElementName=ConsoleWrapper}" Height="{Binding ActualHeight, ElementName=MainViewContainer}" Background="#FF3E3E3E" IsHitTestVisible="True">
+    <DockPanel x:Name="MainViewContainer" Margin="0,0,130,0">
+        <DockPanel.DataContext>
+            <vm:MainViewModel/>
+        </DockPanel.DataContext>
+        <Menu DockPanel.Dock="Top" BorderBrush="Black" BorderThickness="0,0,1,1">
+            <MenuItem Header="_File">
+                <MenuItem Header="_Open" Command="{Binding LoadCommand}"/>
+                <MenuItem Header="_Save" Command="{Binding SaveCommand}"/>
+            </MenuItem>
+            <MenuItem Header="_Add" Command="{Binding AddCommand}"/>
+            <MenuItem Header="_Delete" IsEnabled="False" Command="{Binding DeleteCommand}"/>
+            <MenuItem Header="_Edit" IsEnabled="False" Command="{Binding EditCommand}"/>
+        </Menu>
+        
+        <Border DockPanel.Dock="Bottom" Height="20" Background="#FFF0F0F0" BorderBrush="Black" BorderThickness="0,1,0,0" Margin="0">
+            <ScrollViewer x:Name="ConsoleWrapper">
+                <TextBlock x:Name="Console" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+            </ScrollViewer>
+        </Border>
+        <Border x:Name="WorkSpace">
+            <ItemsControl ItemsSource="{Binding Path=WorkSpaceCollection}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="{Binding ActualWidth, ElementName=ConsoleWrapper}" Height="{Binding ActualHeight, ElementName=MainViewContainer}" Background="#FF3E3E3E" IsHitTestVisible="True" Margin="0,0,0,-38.96">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDown">
                         <i:InvokeCommandAction Command="{Binding PlaceNodeCommand}" CommandParameter="{Binding ElementName=WorkSpace}" />
@@ -46,8 +62,57 @@
                     </DataTemplate>
                 </ItemsControl.Resources>
             </ItemsControl>
-        </Grid>
-        <Grid HorizontalAlignment="Right" Height="319" Margin="385.927,0,0,0" VerticalAlignment="Top" Width="130"/>
-
+        </Border>
+             
+        
+    </DockPanel>
+    <DockPanel x:Name="SideData" Width="130" HorizontalAlignment="Right">
+        <DockPanel.DataContext>
+            <vm:MainViewModel/>
+        </DockPanel.DataContext>
+        <Border DockPanel.Dock="Top" Height="319" Margin="-1,0,0,0" VerticalAlignment="Top" BorderBrush="Black" BorderThickness="0,0,0,1">
+            <DataGrid ItemsSource="{Binding SelectedNode}" ColumnWidth="Auto" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserSortColumns="False">
+                <DataGrid.LayoutTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="90"/>
+                        <MatrixTransform Matrix="-1,0,0,1,0,0"/>
+                    </TransformGroup>
+                </DataGrid.LayoutTransform>
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                        <Setter Property="LayoutTransform">
+                            <Setter.Value>
+                                <TransformGroup>
+                                    <RotateTransform Angle="-90"/>
+                                    <ScaleTransform ScaleX="1" ScaleY="-1" />
+                                </TransformGroup>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+                <DataGrid.CellStyle>
+                    <Style  TargetType="DataGridCell">
+                        <Setter Property="LayoutTransform">
+                            <Setter.Value>
+                                <TransformGroup>
+                                    <RotateTransform Angle="-90"/>
+                                    <ScaleTransform ScaleX="1" ScaleY="-1" />
+                                </TransformGroup>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </DataGrid.CellStyle>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Binding="{Binding SelectedNode.Node.Name}" />
+                    <DataGridTextColumn Header="ID" Binding="{Binding SelectedNode.Node.ID}" />
+                    <DataGridTextColumn Header="Type" Binding="{Binding SelectedNode.Node.Type}" />
+                    <DataGridTextColumn Header="Desc" Binding="{Binding SelectedNode.Node.Description}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+            <Border DockPanel.Dock="Bottom">
+                <TextBlock TextWrapping="Wrap" Text="TextBlock"/>
+            </Border>
+        </DockPanel>
     </Grid>
 </Window>
