@@ -13,7 +13,7 @@
     <Grid x:Name="Root" Cursor="Hand">
         <i:Interaction.Triggers>
             <i:EventTrigger EventName="MouseOver">
-                <i:InvokeCommandAction Command="{Binding SetSelectedLogicGate }" />
+                <i:InvokeCommandAction Command="{Binding SetSelectedNode }" />
             </i:EventTrigger>
             <i:EventTrigger EventName="MouseDown">
                 <i:InvokeCommandAction Command="{Binding BlockRelayCommand }" />

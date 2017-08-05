@@ -41,11 +41,6 @@ namespace PlanBeh.Models
             get { return _snaps ?? (_snaps = new List<Spot>()); }
         }
 
-        public Color GetColor(int nt)
-        {
-            return (Color)ColorConverter.ConvertFromString("#FF323232");
-        }
-
         private Point originalSize;
         private BindablePoint _size;
         public BindablePoint Size

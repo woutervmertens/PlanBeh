@@ -11,17 +11,20 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using PlanBeh.ViewModels;
 
 namespace PlanBeh.Views
 {
     /// <summary>
-    /// Interaction logic for AddView.xaml
-    /// </summary>
-    public partial class AddView : Window
+    /// Interaction logic for EditAddView.xaml
+    ///// </summary>
+    public partial class EditAddView : Window
     {
-        public AddView()
+        public EditAddView(ref NodeViewModel selectedNode, String name)
         {
             InitializeComponent();
+            this.Title = name;
+            this.DataContext = new EditAddViewModel(ref selectedNode, this);
         }
     }
 }

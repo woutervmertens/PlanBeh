@@ -17,6 +17,7 @@ using System.Xml.Serialization;
 using PlanBeh.Annotations;
 using PlanBeh.Models;
 using GalaSoft.MvvmLight.Command;
+using PlanBeh.Views;
 using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 
 namespace PlanBeh.ViewModels
@@ -164,28 +165,10 @@ namespace PlanBeh.ViewModels
         public RelayCommand LoadCommand { get; set; }
 
         public RelayCommand EditCommand { get; set; }
-        public RelayCommand AddCommand { get; set; }
+        public RelayCommand<object> AddCommand { get; set; }
         public RelayCommand DeleteCommand { get; set; }
 
-        public void PlaceNode(object obj)
-        {
-            if (!BlockTrigger)
-            {
-                ActiveNode.ID = LogicIDCounter++;
-                NodeViewModel temp = new NodeViewModel();
-                temp.Node = ActiveNode;
-                temp.Position = Mouse.GetPosition((Border)obj);
-                temp.MainView = this;
-                temp.WorkSpace = (Border)obj;
-                NodeCollection.Add(temp);
-
-                if (WorkSpace == null)
-                    WorkSpace = (Border)obj;
-
-                UpdateActivities();
-            }
-            BlockTrigger = false;
-        }
+        
 
         public void PlaceConnection()
         {
@@ -222,7 +205,7 @@ namespace PlanBeh.ViewModels
 
             foreach (NodeViewModel Node in NodeCollection)
             {
-                Node.UpdateIsActive();
+                Node.Update();
             }
         }
 
@@ -312,17 +295,59 @@ namespace PlanBeh.ViewModels
 
         void OpenEditWindow()
         {
-
+            EditAddView editView = new EditAddView(ref _selectedNode, "Edit");
+            editView.Show();
         }
 
-        void OpenAddWindow()
+        void OpenAddWindow(object obj)
         {
+            NodeViewModel old = _selectedNode;
+            _selectedNode = new NodeViewModel();
+            _selectedNode.Position = ((Border)obj).PointFromScreen(new Point(Mouse.GetPosition((Border)obj).X + 150, Mouse.GetPosition((Border)obj).Y + 250));
+            _selectedNode.MainView = this;
+            _selectedNode.WorkSpace = (Border) obj;
+            EditAddView addView = new EditAddView(ref _selectedNode, "Add");
+            Nullable<bool> dialogResult = addView.ShowDialog();
 
+            if (dialogResult == true)
+            {
+                NodeCollection.Add(_selectedNode);
+
+                if (WorkSpace == null)
+                    WorkSpace = (Border) obj;
+
+                UpdateActivities();
+            }
+            else
+            {
+                _selectedNode = old;
+            }
         }
+
+        //public void PlaceNode(object obj)
+        //{
+        //    if (!BlockTrigger)
+        //    {
+        //        ActiveNode.ID = LogicIDCounter++;
+        //        NodeViewModel temp = new NodeViewModel();
+        //        temp.Node = ActiveNode;
+        //        temp.Position = Mouse.GetPosition((Border)obj);
+        //        temp.MainView = this;
+        //        temp.WorkSpace = (Border)obj;
+        //        NodeCollection.Add(temp);
+
+        //        if (WorkSpace == null)
+        //            WorkSpace = (Border)obj;
+
+        //        UpdateActivities();
+        //    }
+        //    BlockTrigger = false;
+        //}
 
         void DeleteSelectedNode()
         {
-
+            NodeCollection.Remove(_selectedNode);
+            _selectedNode = NodeCollection[NodeCollection.Count];
         }
 
         public MainViewModel()
@@ -330,14 +355,14 @@ namespace PlanBeh.ViewModels
             NodeCollection = new ObservableCollection<NodeViewModel>();
             ConnectionCollection = new ObservableCollection<ConnectionViewModel>();
 
-            PlaceNodeCommand = new RelayCommand<object>(PlaceNode);
+            //PlaceNodeCommand = new RelayCommand<object>(PlaceNode);
             PlaceConnectionCommand = new RelayCommand(PlaceConnection);
 
             SaveCommand = new RelayCommand(SaveXML);
             LoadCommand = new RelayCommand(LoadXML);
 
             EditCommand = new RelayCommand(OpenEditWindow);
-            AddCommand = new RelayCommand(OpenAddWindow);
+            AddCommand = new RelayCommand<object>(OpenAddWindow);
             DeleteCommand = new RelayCommand(DeleteSelectedNode);
         }
             

@@ -80,24 +80,18 @@
     <Compile Include="Helpers.cs" />
     <Compile Include="Models\NodeData.cs" />
     <Compile Include="Models\WorkSpace.cs" />
-    <Compile Include="Views\AddView.xaml.cs">
-      <DependentUpon>AddView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\EditView.xaml.cs">
-      <DependentUpon>EditView.xaml</DependentUpon>
+    <Compile Include="ViewModels\EditAddViewModel.cs" />
+    <Compile Include="Views\EditAddView.xaml.cs">
+      <DependentUpon>EditAddView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\NodeView.xaml.cs">
       <DependentUpon>NodeView.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\AddView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\ConnectionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\EditView.xaml">
+    <Page Include="Views\EditAddView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

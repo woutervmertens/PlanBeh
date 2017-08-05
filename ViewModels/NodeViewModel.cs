@@ -22,6 +22,7 @@ namespace PlanBeh.ViewModels
     {
         public MainViewModel MainView;
         public Border WorkSpace;
+        private NodeData _nodedata;
 
         private NodeModel _Node;
         public NodeModel Node
@@ -35,25 +36,14 @@ namespace PlanBeh.ViewModels
             }
         }
 
-        private Color _outlineColor;
-        public Color OutlineColor
+        private String _outlineColor;
+        public String OutlineColor
         {
             get { return _outlineColor; }
             set
             {
                 _outlineColor = value;
                 OnPropertyChanged("OutlineColor");
-            }
-        }
-
-        private bool _isActive;
-        public bool IsActive
-        {
-            get { return _isActive; }
-            set
-            {
-                _isActive = value;
-                OnPropertyChanged("IsActive");
             }
         }
 
@@ -144,7 +134,7 @@ namespace PlanBeh.ViewModels
             IncomingConnections.Add(Node);
         }
 
-        public void UpdateIsActive()
+        public void Update()
         {
             
         }
@@ -184,7 +174,7 @@ namespace PlanBeh.ViewModels
         {
             if (Node == null)
                 return;
-            OutlineColor = Node.GetColor((int)Node.Type);
+            _outlineColor = _nodedata.NodeColorHexes[(int)Node.Type];
         }
 
         public NodeViewModel()
@@ -201,6 +191,13 @@ namespace PlanBeh.ViewModels
             StartDragCommand = new RelayCommand(StartDrag);
             StopDragCommand = new RelayCommand(StopDrag);
             DragCommand = new RelayCommand<object>(Drag);
+
+            _nodedata = new NodeData();
+            _Node = new NodeModel();
+            _Node.Name = "";
+            _Node.Type = NodeType.ACTION;
+            _Node.Description = "";
+            _outlineColor = _nodedata.NodeColorHexes[(int) _Node.Type];
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

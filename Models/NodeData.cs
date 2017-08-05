@@ -8,8 +8,11 @@ namespace PlanBeh.Models
 {
     public class NodeData
     {
-        NodeData()
+        public NodeData()
         {
+            NodeColorHexes = new List<string>();
+            NodeTypeDescriptions = new List<string>();
+
             NodeColorHexes.Add("#ba3946"); //CONDITIONAL
             NodeColorHexes.Add("#ff7f50"); //ACTION
             NodeColorHexes.Add("#47848e"); //SEQUENCE
