@@ -7,10 +7,13 @@ using System.Windows;
 using GalaSoft.MvvmLight.CommandWpf;
 using PlanBeh.Models;
 using PlanBeh.Views;
+using System.ComponentModel;
+using PlanBeh.Annotations;
+using System.Runtime.CompilerServices;
 
 namespace PlanBeh.ViewModels
 {
-    class EditAddViewModel
+    class EditAddViewModel : INotifyPropertyChanged
     {
         public EditAddView View;
         public RelayCommand ButtonCommand { get; private set; }
@@ -19,21 +22,27 @@ namespace PlanBeh.ViewModels
         public String Name
         {
             get { return _name; }
-            set { _name = value; }
+            set { _name = value;
+                OnPropertyChanged("Name");
+            }
         }
 
         private NodeType _type;
         public NodeType Type
         {
             get { return _type; }
-            set { _type = value; }
+            set { _type = value;
+                OnPropertyChanged("Type");
+            }
         }
 
         private String _desc;
         public String Desc
         {
             get { return _desc; }
-            set { _desc = value; }
+            set { _desc = value;
+                OnPropertyChanged("Desc");
+            }
         }
 
         public EditAddViewModel(ref NodeViewModel selectedNode, EditAddView view)
@@ -58,6 +67,17 @@ namespace PlanBeh.ViewModels
         public IEnumerable<NodeType> NodeTypes
         {
             get { return Enum.GetValues(typeof(NodeType)).Cast<NodeType>(); }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
     }
 }

@@ -23,8 +23,8 @@
                 <MenuItem Header="_Save" Command="{Binding SaveCommand}"/>
             </MenuItem>
                 <MenuItem Header="_Add" Command="{Binding AddCommand}" CommandParameter="{Binding ElementName=WorkSpace}"/>
-            <MenuItem Header="_Delete" IsEnabled="False" Command="{Binding DeleteCommand}"/>
-            <MenuItem Header="_Edit" IsEnabled="False" Command="{Binding EditCommand}"/>
+            <MenuItem Header="_Delete" Command="{Binding DeleteCommand}"/>
+                <MenuItem Header="_Edit" Command="{Binding EditCommand}" CommandParameter="{Binding ElementName=WorkSpace}"/>
         </Menu>
         
         <Border DockPanel.Dock="Bottom" Height="20" Background="#FFF0F0F0" BorderBrush="Black" BorderThickness="0,1,0,0" Margin="0">
@@ -35,9 +35,9 @@
         <Border x:Name="WorkSpace">
             <ItemsControl ItemsSource="{Binding Path=WorkSpaceCollection}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="{Binding ActualWidth, ElementName=ConsoleWrapper}" Height="{Binding ActualHeight, ElementName=MainViewContainer}" Background="#FF3E3E3E" IsHitTestVisible="True" Margin="0,0,0,-38.96">
                 <i:Interaction.Triggers>
-                    <!--<i:EventTrigger EventName="MouseDown">
+                    <i:EventTrigger EventName="MouseDown">
                         <i:InvokeCommandAction Command="{Binding PlaceNodeCommand}" CommandParameter="{Binding ElementName=WorkSpace}" />
-                    </i:EventTrigger>-->
+                    </i:EventTrigger>
                     <i:EventTrigger EventName="MouseUp">
                         <i:InvokeCommandAction Command="{Binding StopConnectingCommand}"/>
                     </i:EventTrigger>

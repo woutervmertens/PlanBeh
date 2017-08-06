@@ -10,6 +10,9 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
         d:DesignHeight="130" d:DesignWidth="150">
+    <UserControl.Resources>
+        <planbeh:EnumToStringConverter x:Key="DefaultEnumToStringConverter"/>
+    </UserControl.Resources>
     <Grid x:Name="Root" Cursor="Hand">
         <i:Interaction.Triggers>
             <i:EventTrigger EventName="MouseOver">
@@ -26,7 +29,7 @@
                 <i:InvokeCommandAction Command="{Binding StopDragCommand }" />
             </i:EventTrigger>
         </i:Interaction.Triggers>
-        <Border BorderThickness="2" BorderBrush="{Binding OutlineColor }" CornerRadius="10" Background="#FF323232" Width="75"/>
+        <Border BorderThickness="2" BorderBrush="{Binding OutlineColor }" CornerRadius="10" Background="{Binding BackColor}" Width="75"/>
         <Border Width="150" Height="100" BorderThickness="2" CornerRadius="10" Background="#FF323232">
             <Border.BorderBrush>
                 <LinearGradientBrush EndPoint="1,1" StartPoint="0,1">
@@ -53,6 +56,11 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </Border>
-
+        <Border Margin="0,30,0,63">
+            <TextBlock TextWrapping="Wrap" Text="{Binding Node.Name}" HorizontalAlignment="Center" FontSize="14" Foreground="White" FontWeight="Bold" VerticalAlignment="Center"/>
+        </Border>
+        <Border Margin="0,67,0,30" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock TextWrapping="Wrap" Text="{Binding Node.Type, Converter={StaticResource DefaultEnumToStringConverter}}" HorizontalAlignment="Center" FontSize="14" Foreground="White" VerticalAlignment="Center"/>
+        </Border>
     </Grid>
 </UserControl>

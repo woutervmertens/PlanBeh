@@ -12,10 +12,10 @@
     <Grid>
         <Button Content="Save" HorizontalAlignment="Center" Margin="0,0,0,10" VerticalAlignment="Bottom" Width="75" Command="{Binding ButtonCommand}" IsDefault="True"/>
         <TextBlock HorizontalAlignment="Left" Margin="21,30,0,0" TextWrapping="Wrap" Text="Name:" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="160,28,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="160,28,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="{Binding Name}"/>
         <TextBlock HorizontalAlignment="Left" Margin="22,74,0,0" TextWrapping="Wrap" Text="Type:" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="23,123,0,0" TextWrapping="Wrap" Text="Description:" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Height="106" Margin="100,120,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="179"/>
+        <TextBox HorizontalAlignment="Left" Height="106" Margin="100,120,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="179" Text="{Binding Desc}"/>
         <ComboBox HorizontalAlignment="Left" Margin="158,71,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding NodeTypes}" SelectedItem="{Binding Type}"/>
 
     </Grid>

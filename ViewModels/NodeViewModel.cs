@@ -47,6 +47,17 @@ namespace PlanBeh.ViewModels
             }
         }
 
+        private String _backColor;
+        public String BackColor
+        {
+            get { return _backColor; }
+            set
+            {
+                _backColor = value;
+                OnPropertyChanged("BackColor");
+            }
+        }
+
         private Point _position;
         public Point Position
         {
@@ -97,7 +108,16 @@ namespace PlanBeh.ViewModels
 
         public void SetSelectedNode()
         {
+            MainView.SelectedNode.SetNotSelected();
             MainView.SelectedNode = this;
+            _backColor = _outlineColor;
+            OnPropertyChanged("BackColor");
+        }
+
+        public void SetNotSelected()
+        {
+            _backColor = "#FF323232";
+            OnPropertyChanged("BackColor");
         }
 
         public void BlockRelay()
@@ -136,7 +156,7 @@ namespace PlanBeh.ViewModels
 
         public void Update()
         {
-            
+            OutlineColor = _nodedata.NodeColorHexes[(int)Node.Type];
         }
 
         private Point StartDragPos = new Point();
@@ -170,11 +190,11 @@ namespace PlanBeh.ViewModels
             }
         }
 
-        public void UpdateItem(NodeModel Node)
+        public void UpdateItem(NodeModel node)
         {
-            if (Node == null)
+            if (node == null)
                 return;
-            _outlineColor = _nodedata.NodeColorHexes[(int)Node.Type];
+            OutlineColor = _nodedata.NodeColorHexes[(int)node.Type];
         }
 
         public NodeViewModel()
@@ -198,6 +218,7 @@ namespace PlanBeh.ViewModels
             _Node.Type = NodeType.ACTION;
             _Node.Description = "";
             _outlineColor = _nodedata.NodeColorHexes[(int) _Node.Type];
+            _backColor = "#FF323232";
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

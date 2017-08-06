@@ -47,11 +47,59 @@ namespace PlanBeh.Models
         {
             get { return _size ?? (_size = new BindablePoint()); }
         }
-        public NodeType Type { get; set; }
-        public int ID { get; set; }
-        public string Description { get; set; }
+        private NodeType _type;
+        public NodeType Type
+        {
+            get
+            {
+                return _type;
+            }
+            set
+            {
+                _type = value;
+                OnPropertyChanged("Type");
+            }
+        }
+        private int _id;
+        public int ID
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                _id = value;
+                OnPropertyChanged("ID");
+            }
+        }
+        private string _description;
+        public string Description
+        {
+            get
+            {
+                return _description;
+            }
+            set
+            {
+                _description = value;
+                OnPropertyChanged("Description");
+            }
+        }
         public string IconPath { get; set; }
         public Point Position { get; set; }
-        public string Name { get; set; }
+        private string _name;
+        public string Name
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                _name = value;
+                OnPropertyChanged("Name");
+            }
+        }
     }
 }
