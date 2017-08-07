@@ -105,7 +105,6 @@
     </Compile>
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Models\ConnectionModel.cs" />
-    <Compile Include="Models\DiagramObject.cs" />
     <Compile Include="Models\NodeModel.cs" />
     <Compile Include="Models\PropertyChangedBase.cs" />
     <Compile Include="Properties\Annotations.cs" />

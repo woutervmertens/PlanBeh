@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using PlanBeh.Annotations;
+using PlanBeh.Models;
 
 namespace PlanBeh.ViewModels
 {
-    public class ConnectionViewModel : INotifyPropertyChanged
+    public class ConnectionViewModel : PropertyChangedBase
     {
         public MainViewModel MainView;
         public Border WorkSpace;
@@ -52,14 +53,6 @@ namespace PlanBeh.ViewModels
         public ConnectionViewModel()
         {
 
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

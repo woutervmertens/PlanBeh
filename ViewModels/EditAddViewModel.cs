@@ -13,7 +13,7 @@ using System.Runtime.CompilerServices;
 
 namespace PlanBeh.ViewModels
 {
-    class EditAddViewModel : INotifyPropertyChanged
+    class EditAddViewModel : PropertyChangedBase
     {
         public EditAddView View;
         public RelayCommand ButtonCommand { get; private set; }
@@ -67,17 +67,6 @@ namespace PlanBeh.ViewModels
         public IEnumerable<NodeType> NodeTypes
         {
             get { return Enum.GetValues(typeof(NodeType)).Cast<NodeType>(); }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-            }
         }
     }
 }

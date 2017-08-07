@@ -18,7 +18,7 @@ using GalaSoft.MvvmLight.Command;
 
 namespace PlanBeh.ViewModels
 {
-    public class NodeViewModel : INotifyPropertyChanged
+    public class NodeViewModel : PropertyChangedBase
     {
         public MainViewModel MainView;
         public Border WorkSpace;
@@ -220,17 +220,6 @@ namespace PlanBeh.ViewModels
             _Node.Description = "";
             _outlineColor = _nodedata.NodeColorHexes[(int) _Node.Type];
             _backColor = "#FF323232";
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            if(PropertyChanged != null)
-            {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-            }
         }
     }
 }

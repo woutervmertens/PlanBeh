@@ -34,7 +34,7 @@ namespace PlanBeh.ViewModels
     /// See http://www.galasoft.ch/mvvm
     /// </para>
     /// </summary>
-    public class MainViewModel : INotifyPropertyChanged
+    public class MainViewModel : PropertyChangedBase
     {
         private Border WorkSpace;
         private int LogicIDCounter = 0;
@@ -243,7 +243,7 @@ namespace PlanBeh.ViewModels
                 {
                     tempWorkSpace.Nodes.Add(Node.Node);
                 }
-                using (var fs = File.OpenWrite(saveFileDialog.FileName))
+                using (var fs = File.Create(saveFileDialog.FileName)) //automatically closes file
                 {
                     xs.Serialize(fs, tempWorkSpace);
                 }
@@ -388,14 +388,6 @@ namespace PlanBeh.ViewModels
             EditCommand = new RelayCommand<object>(OpenEditWindow);
             AddCommand = new RelayCommand<object>(OpenAddWindow);
             DeleteCommand = new RelayCommand(DeleteSelectedNode);
-        }
-            
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
