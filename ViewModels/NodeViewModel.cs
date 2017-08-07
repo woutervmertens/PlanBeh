@@ -108,7 +108,7 @@ namespace PlanBeh.ViewModels
 
         public void SetSelectedNode()
         {
-            MainView.SelectedNode.SetNotSelected();
+            if(MainView.SelectedNode != null) MainView.SelectedNode.SetNotSelected();
             MainView.SelectedNode = this;
             _backColor = _outlineColor;
             OnPropertyChanged("BackColor");
@@ -173,6 +173,7 @@ namespace PlanBeh.ViewModels
                 StartPos = Position;
             }
             CanDrag = true;
+            SetSelectedNode();
         }
 
         public void StopDrag()
@@ -214,7 +215,7 @@ namespace PlanBeh.ViewModels
 
             _nodedata = new NodeData();
             _Node = new NodeModel();
-            _Node.Name = "";
+            _Node.NodeName = "";
             _Node.Type = NodeType.ACTION;
             _Node.Description = "";
             _outlineColor = _nodedata.NodeColorHexes[(int) _Node.Type];

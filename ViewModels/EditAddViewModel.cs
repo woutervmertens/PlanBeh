@@ -48,7 +48,7 @@ namespace PlanBeh.ViewModels
         public EditAddViewModel(ref NodeViewModel selectedNode, EditAddView view)
         {
             _selectedNode = selectedNode;
-            _name = _selectedNode.Node.Name;
+            _name = _selectedNode.Node.NodeName;
             _type = _selectedNode.Node.Type;
             _desc = _selectedNode.Node.Description;
             View = view;
@@ -57,7 +57,7 @@ namespace PlanBeh.ViewModels
         }
         void ButtonClick()
         {
-            _selectedNode.Node.Name = _name;
+            _selectedNode.Node.NodeName = _name;
             _selectedNode.Node.Type = _type;
             _selectedNode.Node.Description = _desc;
             View.DialogResult = true;

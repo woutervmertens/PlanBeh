@@ -229,7 +229,8 @@ namespace PlanBeh.ViewModels
             saveFileDialog.Filter = "XML File (*.xml)|*.xml";
             saveFileDialog.FilterIndex = 2;
             saveFileDialog.RestoreDirectory = true;
-            saveFileDialog.ShowDialog();
+            Nullable<bool> dialogResult = saveFileDialog.ShowDialog();
+            if(dialogResult == true)
             {
                 foreach (ConnectionViewModel connection in ConnectionCollection)
                 {
@@ -259,8 +260,10 @@ namespace PlanBeh.ViewModels
             openFileDialog.Filter = "XML File (*.xml)|*.xml";
             openFileDialog.FilterIndex = 2;
             openFileDialog.RestoreDirectory = true;
-            openFileDialog.ShowDialog();
+            DialogResult result = openFileDialog.ShowDialog();
+            if(result == DialogResult.OK)
             {
+                if (!openFileDialog.CheckPathExists || !openFileDialog.CheckFileExists) return;
                 using (var fs = File.OpenRead(openFileDialog.FileName))
                 {
                     tempWorkSpace = xs.Deserialize(fs) as WorkSpace;
@@ -323,12 +326,16 @@ namespace PlanBeh.ViewModels
 
             if (dialogResult == true)
             {
+
                 NodeCollection.Add(_selectedNode);
+                
 
                 if (WorkSpace == null)
                     WorkSpace = (Border) obj;
 
                 UpdateActivities();
+
+                _selectedNode.SetSelectedNode();
             }
             else
             {

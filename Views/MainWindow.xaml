@@ -103,7 +103,7 @@
                     </Style>
                 </DataGrid.CellStyle>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Name" Binding="{Binding SelectedNode.Node.Name}" />
+                    <DataGridTextColumn Header="Name" Binding="{Binding SelectedNode.Node.NodeName}" />
                     <DataGridTextColumn Header="ID" Binding="{Binding SelectedNode.Node.ID}" />
                     <DataGridTextColumn Header="Type" Binding="{Binding SelectedNode.Node.Type}" />
                     <DataGridTextColumn Header="Desc" Binding="{Binding SelectedNode.Node.Description}" />
