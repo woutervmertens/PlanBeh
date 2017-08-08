@@ -50,6 +50,45 @@ namespace PlanBeh.ViewModels
             }
         }
 
+        private NodeType _selectedInfoType;
+        public NodeType SelectedInfoType
+        {
+            get { return _selectedInfoType; }
+            set
+            {
+                _selectedInfoType = value;
+                SelectedInfoDesc = _nodeData.NodeTypeDescriptions[(int)_selectedInfoType];
+                SelectedInfoColor = _nodeData.NodeColorHexes[(int)_selectedInfoType];
+                OnPropertyChanged("SelectedInfoType");
+            }
+        }
+        private NodeData _nodeData;
+        private String _selectedInfoDesc;
+        public String SelectedInfoDesc
+        {
+            get { return _selectedInfoDesc; }
+            set
+            {
+                _selectedInfoDesc = value;
+                OnPropertyChanged("SelectedInfoDesc");
+            }
+        }
+        public String _selectedInfoColor;
+        public String SelectedInfoColor
+        {
+            get { return _selectedInfoColor; }
+            set
+            {
+                _selectedInfoColor = value;
+                OnPropertyChanged("SelectedInfoColor");
+            }
+        }
+
+        public IEnumerable<NodeType> NodeTypes
+        {
+            get { return Enum.GetValues(typeof(NodeType)).Cast<NodeType>(); }
+        }
+
         private NodeModel _activeNode;
         public NodeModel ActiveNode
         {
@@ -388,6 +427,10 @@ namespace PlanBeh.ViewModels
             EditCommand = new RelayCommand<object>(OpenEditWindow);
             AddCommand = new RelayCommand<object>(OpenAddWindow);
             DeleteCommand = new RelayCommand(DeleteSelectedNode);
+
+            _nodeData = new NodeData();
+            SelectedInfoDesc = _nodeData.NodeTypeDescriptions[(int)_selectedInfoType];
+            SelectedInfoColor = _nodeData.NodeColorHexes[(int)_selectedInfoType];
         }
     }
 }
