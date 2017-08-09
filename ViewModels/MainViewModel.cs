@@ -129,7 +129,7 @@ namespace PlanBeh.ViewModels
             set
             {
                 _workspaceCollection = value;
-                OnPropertyChanged("PropertyName");
+                OnPropertyChanged("WorkSpaceCollection");
             }
         }
 
@@ -203,6 +203,8 @@ namespace PlanBeh.ViewModels
         public RelayCommand SaveCommand { get; set; }
         public RelayCommand LoadCommand { get; set; }
 
+        public RelayCommand<object> SetWorkSpaceCommand { get; set; }
+
         public RelayCommand<object> EditCommand { get; set; }
         public RelayCommand<object> AddCommand { get; set; }
         public RelayCommand DeleteCommand { get; set; }
@@ -231,9 +233,9 @@ namespace PlanBeh.ViewModels
 
         public void UpdateActivities()
         {
-            foreach (NodeViewModel Node in NodeCollection)
+            foreach (NodeViewModel node in NodeCollection)
             {
-                Node.ResetConnections();
+                node.ResetConnections();
             }
 
             foreach (ConnectionViewModel connection in ConnectionCollection)
@@ -242,9 +244,9 @@ namespace PlanBeh.ViewModels
                 connection.TargetNode.AddIncomingConnection(connection.OriginNode);
             }
 
-            foreach (NodeViewModel Node in NodeCollection)
+            foreach (NodeViewModel node in NodeCollection)
             {
-                Node.Update();
+                node.Update();
             }
         }
 
@@ -255,6 +257,7 @@ namespace PlanBeh.ViewModels
                 WorkSpaceCollection = new CompositeCollection();
                 WorkSpaceCollection.Add(new CollectionContainer() { Collection = NodeCollection });
                 WorkSpaceCollection.Add(new CollectionContainer() { Collection = ConnectionCollection });
+                OnPropertyChanged("PropertyName");
             }
         }
 
@@ -320,6 +323,7 @@ namespace PlanBeh.ViewModels
                     temp.MainView = this;
                     temp.WorkSpace = WorkSpace;
                     temp.Update();
+                    temp.SetSelectedNode();
                     NodeCollection.Add(temp);
                 }
                 foreach (ConnectionModel connection in tempWorkSpace.Connections)
@@ -413,10 +417,18 @@ namespace PlanBeh.ViewModels
             }
         }
 
+        void SetWorkSpace(object obj)
+        {
+            if (WorkSpace == null)
+                WorkSpace = (Border)obj;
+        }
+
         public MainViewModel()
         {
             NodeCollection = new ObservableCollection<NodeViewModel>();
             ConnectionCollection = new ObservableCollection<ConnectionViewModel>();
+
+            SetWorkSpaceCommand = new RelayCommand<object>(SetWorkSpace);
 
             //PlaceNodeCommand = new RelayCommand<object>(PlaceNode);
             PlaceConnectionCommand = new RelayCommand(PlaceConnection);

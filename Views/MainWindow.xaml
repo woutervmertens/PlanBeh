@@ -33,8 +33,11 @@
                 </ScrollViewer>
             </Border>
             <Border x:Name="WorkSpace">
-                <ItemsControl ItemsSource="{Binding Path=WorkSpaceCollection}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="{Binding ActualWidth, ElementName=ConsoleWrapper}" Height="{Binding ActualHeight, ElementName=MainViewContainer}" Background="#FF3E3E3E" IsHitTestVisible="True" Margin="0,0,0,-38.96">
+                <ItemsControl ItemsSource="{Binding Path=WorkSpaceCollection, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="{Binding ActualWidth, ElementName=ConsoleWrapper}" Height="{Binding ActualHeight, ElementName=MainViewContainer}" Background="#FF3E3E3E" IsHitTestVisible="True" Margin="0,0,0,-38.96">
                     <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Loaded">
+                            <i:InvokeCommandAction Command="{Binding SetWorkSpaceCommand}" CommandParameter="{Binding ElementName=WorkSpace}"></i:InvokeCommandAction>
+                        </i:EventTrigger>
                         <i:EventTrigger EventName="MouseDown">
                             <i:InvokeCommandAction Command="{Binding PlaceNodeCommand}" CommandParameter="{Binding ElementName=WorkSpace}" />
                         </i:EventTrigger>
