@@ -78,6 +78,7 @@
     <Compile Include="Commands\UndoRedoStack.cs" />
     <Compile Include="Converters.cs" />
     <Compile Include="Helpers.cs" />
+    <Compile Include="Models\Arrow.cs" />
     <Compile Include="Models\NodeData.cs" />
     <Compile Include="Models\WorkSpace.cs" />
     <Compile Include="ViewModels\EditAddViewModel.cs" />
@@ -150,6 +151,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Images\Open.png" />
+    <Resource Include="Views\Images\Save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Images\Tree256.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

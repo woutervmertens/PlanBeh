@@ -66,8 +66,8 @@ namespace PlanBeh.ViewModels
             {
                 _position = value;
                 Node.Position = _position;
-                InputPos = new Point(_position.X + 25, _position.Y + 35);
-                OutputPos = new Point(_position.X + 150 - 25, _position.Y + 35);
+                InputPos = new Point(_position.X + 75, _position.Y + 15);
+                OutputPos = new Point(_position.X + 75, _position.Y + 115);
                 OnPropertyChanged("Position");
             }
         }

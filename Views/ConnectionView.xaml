@@ -4,13 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:planbeh="clr-namespace:PlanBeh"
+        xmlns:views="clr-namespace:PlanBeh.Views"
+        xmlns:viewModels="clr-namespace:PlanBeh.ViewModels"
+        xmlns:models="clr-namespace:PlanBeh.Models"
         mc:Ignorable="d"
         d:DesignHeight="300" d:DesignWidth="300">
-    <UserControl.Resources>
-        <planbeh:BoolToConnectionActiveStroke x:Key="activeConv"/>
-    </UserControl.Resources>
-
+   
     <Grid Width="{Binding WorkSpace.Width}" Height="{Binding WorkSpace.Height}">
-        <Line X1="{Binding OriginNode.OutputPos.X}" Y1="{Binding OriginNode.OutputPos.Y}" X2="{Binding TargetNode.InputPos.X}" Y2="{Binding TargetNode.InputPos.Y}" Stroke="{Binding OriginNode.IsActive, Converter={StaticResource activeConv}}" StrokeThickness="4" />
+        <models:Arrow 
+            Stroke="Black"
+            StrokeThickness="2"
+            Fill="Black"
+            Start="{Binding OriginNode.OutputPos}"
+            End="{Binding TargetNode.InputPos}"
+            IsHitTestVisible="False"/>
     </Grid>
 </UserControl>

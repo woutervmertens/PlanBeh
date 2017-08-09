@@ -8,7 +8,7 @@
         xmlns:views ="clr-namespace:PlanBeh.Views"
         xmlns:vm="clr-namespace:PlanBeh.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="514.989" Width="677.975">
+        Title="Plantation" Icon="Images/Tree256.png" Height="514.989" Width="677.975">
     <Window.Resources>
         <vm:NodeViewModel x:Key="NodeViewModel"/>
     </Window.Resources>
@@ -17,14 +17,26 @@
             <DockPanel.DataContext>
                 <vm:MainViewModel/>
             </DockPanel.DataContext>
-            <Menu DockPanel.Dock="Top" BorderBrush="Black" BorderThickness="0,0,1,1">
+            <Menu IsMainMenu="True" DockPanel.Dock="Top" BorderBrush="Black" BorderThickness="0,0,1,1">
                 <MenuItem Header="_File">
-                    <MenuItem Header="_Open" Command="{Binding LoadCommand}"/>
-                    <MenuItem Header="_Save" Command="{Binding SaveCommand}"/>
+                    <MenuItem Header="_Open" Command="{Binding LoadCommand}">
+                        <MenuItem.Icon>
+                            <Image Source="Images/Open.png"></Image>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="_Save" Command="{Binding SaveCommand}">
+                        <MenuItem.Icon>
+                            <Image Source="Images/Save.png"></Image>
+                        </MenuItem.Icon>
+                    </MenuItem>
                 </MenuItem>
+                <Separator/>
                 <MenuItem Header="_Add" Command="{Binding AddCommand}" CommandParameter="{Binding ElementName=WorkSpace}"/>
-                <MenuItem Header="_Delete" Command="{Binding DeleteCommand}"/>
                 <MenuItem Header="_Edit" Command="{Binding EditCommand}" CommandParameter="{Binding ElementName=WorkSpace}"/>
+                <MenuItem Header="_Delete" Command="{Binding DeleteCommand}"/>
+                <Separator/>
+                <MenuItem Header="_Undo Connection"/>
+                <MenuItem Header="_Redo Connection"/>
             </Menu>
 
             <Border DockPanel.Dock="Bottom" Height="20" Background="#FFF0F0F0" BorderBrush="Black" BorderThickness="0,1,0,0" Margin="0">
