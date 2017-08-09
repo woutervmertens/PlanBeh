@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PlanBeh.ViewModels;
 
 namespace PlanBeh.Commands
 {
-    public class UndoRedoStack<T>
+    public class UndoRedoStack<T, R>
     {
-        private Stack<ICommand<T>> _undo;
-        private Stack<ICommand<T>> _redo;
+        private Stack<ICommand<T, R>> _undo;
+        private Stack<ICommand<T, R>> _redo;
 
         public int UndoCount
         {
@@ -31,42 +33,31 @@ namespace PlanBeh.Commands
         }
         public void Reset()
         {
-            _undo = new Stack<ICommand<T>>();
-            _redo = new Stack<ICommand<T>>();
+            _undo = new Stack<ICommand<T, R>>();
+            _redo = new Stack<ICommand<T, R>>();
         }
-        public T Do(ICommand<T> cmd, T input)
+        public void Do(ICommand<T, R> cmd, ref T input)
         {
-            T output = cmd.Do(input);
+            cmd.Do(ref input);
             _undo.Push(cmd);
             _redo.Clear();
-            return output;
         }
-        public T Undo(T input)
+        public void Undo(ref T input)
         {
-            if(_undo.Count > 0)
+            if (_undo.Count > 0)
             {
-                ICommand<T> cmd = _undo.Pop();
-                T output = cmd.Undo(input);
+                ICommand<T, R> cmd = _undo.Pop();
+                cmd.Undo(ref input);
                 _redo.Push(cmd);
-                return output;
-            }
-            else
-            {
-                return input;
             }
         }
-        public T Redo(T input)
+        public void Redo(ref T input)
         {
-            if(_redo.Count > 0)
+            if (_redo.Count > 0)
             {
-                ICommand<T> cmd = _redo.Pop();
-                T output = cmd.Do(input);
+                ICommand<T, R> cmd = _redo.Pop();
+                cmd.Do(ref input);
                 _undo.Push(cmd);
-                return output;
-            }
-            else
-            {
-                return input;
             }
         }
     }

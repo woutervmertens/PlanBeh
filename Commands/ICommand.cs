@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace PlanBeh.Commands
 {
-    public interface ICommand<T>
+    public interface ICommand<T, R>
     {
-        T Do(T input);
-        T Undo(T input);
+        void Do(ref T input);
+        void Undo(ref T input);
     }
 }

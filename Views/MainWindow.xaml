@@ -35,8 +35,8 @@
                 <MenuItem Header="_Edit" Command="{Binding EditCommand}" CommandParameter="{Binding ElementName=WorkSpace}"/>
                 <MenuItem Header="_Delete" Command="{Binding DeleteCommand}"/>
                 <Separator/>
-                <MenuItem Header="_Undo Connection"/>
-                <MenuItem Header="_Redo Connection"/>
+                <MenuItem Header="_Undo Connection" Command="{Binding UndoConnectionCommand}"/>
+                <MenuItem Header="_Redo Connection" Command="{Binding RedoConnectionCommand}"/>
             </Menu>
 
             <Border DockPanel.Dock="Bottom" Height="20" Background="#FFF0F0F0" BorderBrush="Black" BorderThickness="0,1,0,0" Margin="0">

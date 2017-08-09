@@ -17,6 +17,7 @@ using System.Xml.Serialization;
 using PlanBeh.Annotations;
 using PlanBeh.Models;
 using GalaSoft.MvvmLight.Command;
+using PlanBeh.Commands;
 using PlanBeh.Views;
 using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 
@@ -38,6 +39,8 @@ namespace PlanBeh.ViewModels
     {
         private Border WorkSpace;
         private int LogicIDCounter = 0;
+
+        private UndoRedoStack<ObservableCollection<ConnectionViewModel>, ConnectionViewModel> UndoRedoManager;
 
         private bool _isInEditMode;
         public bool IsInEditMode
@@ -209,7 +212,20 @@ namespace PlanBeh.ViewModels
         public RelayCommand<object> AddCommand { get; set; }
         public RelayCommand DeleteCommand { get; set; }
 
-        
+        public RelayCommand UndoConnectionCommand { get; set; }
+        public RelayCommand RedoConnectionCommand { get; set; }
+
+        public void UndoConnection()
+        {
+            if(UndoRedoManager.UndoCount > 0)
+                UndoRedoManager.Undo(ref _connectionCollection);
+        }
+
+        public void RedoConnection()
+        {
+            if(UndoRedoManager.RedoCount > 0)
+                UndoRedoManager.Redo(ref _connectionCollection);
+        }
 
         public void PlaceConnection()
         {
@@ -221,7 +237,7 @@ namespace PlanBeh.ViewModels
                 temp.TargetNode = _targetNode;
                 temp.MainView = this;
                 temp.WorkSpace = WorkSpace;
-                _connectionCollection.Add(temp);
+                UndoRedoManager.Do(new ConnectionsCommand(temp), ref _connectionCollection );
                 UpdateActivities();
             }
         }
@@ -411,6 +427,13 @@ namespace PlanBeh.ViewModels
             if (_selectedNode != null)
             {
                 NodeCollection.Remove(_selectedNode);
+                foreach (var con in ConnectionCollection)
+                {
+                    if (con.OriginNode == _selectedNode || con.TargetNode == _selectedNode)
+                    {
+                        ConnectionCollection.Remove(con);
+                    }
+                }
                 if (NodeCollection.Count > 1)
                     _selectedNode = NodeCollection[NodeCollection.Count];
                 else _selectedNode = null;
@@ -443,6 +466,10 @@ namespace PlanBeh.ViewModels
             _nodeData = new NodeData();
             SelectedInfoDesc = _nodeData.NodeTypeDescriptions[(int)_selectedInfoType];
             SelectedInfoColor = _nodeData.NodeColorHexes[(int)_selectedInfoType];
+
+            UndoRedoManager = new UndoRedoStack<ObservableCollection<ConnectionViewModel>, ConnectionViewModel>();
+            UndoConnectionCommand = new RelayCommand(UndoConnection);
+            RedoConnectionCommand = new RelayCommand(RedoConnection);
         }
     }
 }
