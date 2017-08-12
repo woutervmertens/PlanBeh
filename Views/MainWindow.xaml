@@ -8,7 +8,7 @@
         xmlns:views ="clr-namespace:PlanBeh.Views"
         xmlns:vm="clr-namespace:PlanBeh.ViewModels"
         mc:Ignorable="d"
-        Title="Plantation" Icon="Images/Tree256.png" Height="514.989" Width="677.975">
+        Title="Plantation" Icon="Images/Tree256.png" Height="514.989" Width="715.975">
     <Window.Resources>
         <vm:NodeViewModel x:Key="NodeViewModel"/>
     </Window.Resources>
@@ -37,6 +37,8 @@
                 <Separator/>
                 <MenuItem Header="_Undo Connection" Command="{Binding UndoConnectionCommand}"/>
                 <MenuItem Header="_Redo Connection" Command="{Binding RedoConnectionCommand}"/>
+                <Separator/>
+                <ComboBox x:Name="themeBox" Width="100" ItemsSource="{Binding ThemesList}" SelectedIndex="0"/>
             </Menu>
 
             <Border DockPanel.Dock="Bottom" Height="20" Background="#FFF0F0F0" BorderBrush="Black" BorderThickness="0,1,0,0" Margin="0">

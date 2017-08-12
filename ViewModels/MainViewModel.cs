@@ -37,6 +37,23 @@ namespace PlanBeh.ViewModels
     /// </summary>
     public class MainViewModel : PropertyChangedBase
     {
+        public enum ThemesEnum
+        {
+            Default,
+                ExpressionDark, ExpressionLight,
+                RainierOrange, RainierPurple, RainierRadialBlue,
+                ShinyBlue, ShinyRed,
+                ShinyDarkTeal, ShinyDarkGreen, ShinyDarkPurple,
+                DavesGlossyControls,
+                WhistlerBlue,
+                BureauBlack, BureauBlue,
+                BubbleCreme,
+                TwilightBlue,
+                UXMusingsRed, UXMusingsGreen,
+                UXMusingsRoughRed, UXMusingsRoughGreen,
+                UXMusingsBubblyBlue
+        }
+
         private Border WorkSpace;
         private int LogicIDCounter = 0;
 
@@ -90,6 +107,11 @@ namespace PlanBeh.ViewModels
         public IEnumerable<NodeType> NodeTypes
         {
             get { return Enum.GetValues(typeof(NodeType)).Cast<NodeType>(); }
+        }
+
+        public IEnumerable<ThemesEnum> ThemesList
+        {
+            get { return Enum.GetValues(typeof(ThemesEnum)).Cast<ThemesEnum>(); }
         }
 
         private NodeModel _activeNode;
