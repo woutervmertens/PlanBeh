@@ -419,7 +419,7 @@ namespace PlanBeh.ViewModels
 
         void OpenEditWindow(object obj)
         {
-            if (_selectedNode != null)
+            if (SelectedNode != null)
             {
                 EditAddView editView = new EditAddView(ref _selectedNode, "Edit");
                 Nullable<bool> dialogResult = editView.ShowDialog();
@@ -427,7 +427,7 @@ namespace PlanBeh.ViewModels
                 {
                     if (WorkSpace == null)
                         WorkSpace = (Border)obj;
-
+                    OnPropertyChanged("SelectedNode");
                     UpdateActivities();
                 }
             }
@@ -435,31 +435,31 @@ namespace PlanBeh.ViewModels
 
         void OpenAddWindow(object obj)
         {
-            NodeViewModel old = _selectedNode;
-            _selectedNode = new NodeViewModel();
-            _selectedNode.Position = ((Border)obj).PointFromScreen(new Point(Mouse.GetPosition((Border)obj).X + 150, Mouse.GetPosition((Border)obj).Y + 250));
-            _selectedNode.MainView = this;
-            _selectedNode.WorkSpace = (Border) obj;
-            _selectedNode.Node.ID = LogicIDCounter++;
+            NodeViewModel old = SelectedNode;
+            SelectedNode = new NodeViewModel();
+            SelectedNode.Position = ((Border)obj).PointFromScreen(new Point(Mouse.GetPosition((Border)obj).X + 150, Mouse.GetPosition((Border)obj).Y + 250));
+            SelectedNode.MainView = this;
+            SelectedNode.WorkSpace = (Border) obj;
+            SelectedNode.Node.ID = LogicIDCounter++;
             EditAddView addView = new EditAddView(ref _selectedNode, "Add");
             Nullable<bool> dialogResult = addView.ShowDialog();
 
             if (dialogResult == true)
             {
 
-                NodeCollection.Add(_selectedNode);
+                NodeCollection.Add(SelectedNode);
                 
 
                 if (WorkSpace == null)
                     WorkSpace = (Border) obj;
 
                 UpdateActivities();
-
-                _selectedNode.SetSelectedNode();
+                OnPropertyChanged("SelectedNode");
+                SelectedNode.SetSelectedNode();
             }
             else
             {
-                _selectedNode = old;
+                SelectedNode = old;
             }
         }
 
@@ -485,19 +485,19 @@ namespace PlanBeh.ViewModels
 
         void DeleteSelectedNode()
         {
-            if (_selectedNode != null)
+            if (SelectedNode != null)
             {
-                NodeCollection.Remove(_selectedNode);
+                NodeCollection.Remove(SelectedNode);
                 foreach (var con in ConnectionCollection)
                 {
-                    if (con.OriginNode == _selectedNode || con.TargetNode == _selectedNode)
+                    if (con.OriginNode == SelectedNode || con.TargetNode == SelectedNode)
                     {
                         ConnectionCollection.Remove(con);
                     }
                 }
                 if (NodeCollection.Count > 1)
-                    _selectedNode = NodeCollection[NodeCollection.Count];
-                else _selectedNode = null;
+                    SelectedNode = NodeCollection[NodeCollection.Count];
+                else SelectedNode = null;
             }
         }
 
@@ -534,8 +534,8 @@ namespace PlanBeh.ViewModels
 
             AddWorkSpaceHeightCommand = new RelayCommand(AddWorkSpaceHeight);
             AddWorkSpaceWidthCommand = new RelayCommand(AddWorkSpaceWidth);
-            _totalWorkSpaceHeight = 500;
-            _totalWorkSpaceWidth = 500;
+            TotalWorkSpaceHeight = 500;
+            TotalWorkSpaceWidth = 500;
         }
     }
 }
