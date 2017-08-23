@@ -215,6 +215,28 @@ namespace PlanBeh.ViewModels
             }
         }
 
+        private float _totalWorkSpaceWidth;
+        public float TotalWorkSpaceWidth
+        {
+            get { return _totalWorkSpaceWidth; }
+            set
+            {
+                _totalWorkSpaceWidth = value;
+                OnPropertyChanged("TotalWorkSpaceWidth");
+            }
+        }
+
+        private float _totalWorkSpaceHeight;
+        public float TotalWorkSpaceHeight
+        {
+            get { return _totalWorkSpaceHeight; }
+            set
+            {
+                _totalWorkSpaceHeight = value;
+                OnPropertyChanged("TotalWorkSpaceHeight");
+            }
+        }
+
         public void SetActiveNode(NodeModel obj)
         {
             ActiveNode = obj;
@@ -237,6 +259,9 @@ namespace PlanBeh.ViewModels
         public RelayCommand UndoConnectionCommand { get; set; }
         public RelayCommand RedoConnectionCommand { get; set; }
 
+        public RelayCommand AddWorkSpaceWidthCommand { get; set; }
+        public RelayCommand AddWorkSpaceHeightCommand { get; set; }
+
         public void UndoConnection()
         {
             if(UndoRedoManager.UndoCount > 0)
@@ -247,6 +272,16 @@ namespace PlanBeh.ViewModels
         {
             if(UndoRedoManager.RedoCount > 0)
                 UndoRedoManager.Redo(ref _connectionCollection);
+        }
+
+        public void AddWorkSpaceWidth()
+        {
+            TotalWorkSpaceWidth += 500;
+        }
+
+        public void AddWorkSpaceHeight()
+        {
+            TotalWorkSpaceHeight += 500;
         }
 
         public void PlaceConnection()
@@ -323,6 +358,8 @@ namespace PlanBeh.ViewModels
                 {
                     tempWorkSpace.Nodes.Add(Node.Node);
                 }
+                tempWorkSpace.Height = TotalWorkSpaceHeight;
+                tempWorkSpace.Width = TotalWorkSpaceWidth;
                 using (var fs = File.Create(saveFileDialog.FileName)) //automatically closes file
                 {
                     xs.Serialize(fs, tempWorkSpace);
@@ -373,6 +410,8 @@ namespace PlanBeh.ViewModels
                     temp.WorkSpace = WorkSpace;
                     ConnectionCollection.Add(temp);
                 }
+                TotalWorkSpaceHeight = tempWorkSpace.Height;
+                TotalWorkSpaceWidth = tempWorkSpace.Width;
             }
             UpdateWorkSpaceCollection();
             UpdateActivities();
@@ -492,6 +531,11 @@ namespace PlanBeh.ViewModels
             UndoRedoManager = new UndoRedoStack<ObservableCollection<ConnectionViewModel>, ConnectionViewModel>();
             UndoConnectionCommand = new RelayCommand(UndoConnection);
             RedoConnectionCommand = new RelayCommand(RedoConnection);
+
+            AddWorkSpaceHeightCommand = new RelayCommand(AddWorkSpaceHeight);
+            AddWorkSpaceWidthCommand = new RelayCommand(AddWorkSpaceWidth);
+            _totalWorkSpaceHeight = 500;
+            _totalWorkSpaceWidth = 500;
         }
     }
 }

@@ -8,7 +8,7 @@
         xmlns:views ="clr-namespace:PlanBeh.Views"
         xmlns:vm="clr-namespace:PlanBeh.ViewModels"
         mc:Ignorable="d"
-        Title="Plantation" Icon="Images/Tree256.png" Height="514.989" Width="715.975">
+        Title="Plantation" Icon="Images/Tree256.png" Height="353.989" Width="750.975" MinWidth="750" MinHeight="350">
     <Window.Resources>
         <vm:NodeViewModel x:Key="NodeViewModel"/>
     </Window.Resources>
@@ -38,47 +38,60 @@
                 <MenuItem Header="_Undo Connection" Command="{Binding UndoConnectionCommand}"/>
                 <MenuItem Header="_Redo Connection" Command="{Binding RedoConnectionCommand}"/>
                 <Separator/>
-                <ComboBox x:Name="themeBox" Width="100" ItemsSource="{Binding ThemesList}" SelectedIndex="0"/>
+                <MenuItem Header="_Add Width" Command="{Binding AddWorkSpaceWidthCommand}"/>
+                <MenuItem Header="_Add Height" Command="{Binding AddWorkSpaceHeightCommand}"/>
             </Menu>
 
-            <Border DockPanel.Dock="Bottom" Height="20" Background="#FFF0F0F0" BorderBrush="Black" BorderThickness="0,1,0,0" Margin="0">
-                <ScrollViewer x:Name="ConsoleWrapper">
-                    <TextBlock x:Name="Console" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
-                </ScrollViewer>
-            </Border>
             <Border x:Name="WorkSpace">
-                <ItemsControl ItemsSource="{Binding Path=WorkSpaceCollection, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="{Binding ActualWidth, ElementName=ConsoleWrapper}" Height="{Binding ActualHeight, ElementName=MainViewContainer}" Background="#FF3E3E3E" IsHitTestVisible="True" Margin="0,0,0,-38.96">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="Loaded">
-                            <i:InvokeCommandAction Command="{Binding SetWorkSpaceCommand}" CommandParameter="{Binding ElementName=WorkSpace}"></i:InvokeCommandAction>
-                        </i:EventTrigger>
-                        <i:EventTrigger EventName="MouseDown">
-                            <i:InvokeCommandAction Command="{Binding PlaceNodeCommand}" CommandParameter="{Binding ElementName=WorkSpace}" />
-                        </i:EventTrigger>
-                        <i:EventTrigger EventName="MouseUp">
-                            <i:InvokeCommandAction Command="{Binding StopConnectingCommand}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <Canvas/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemContainerStyle>
-                        <Style TargetType="ContentPresenter">
-                            <Setter Property="Canvas.Left" Value="{Binding Position.X}"/>
-                            <Setter Property="Canvas.Top" Value="{Binding Position.Y}"/>
-                        </Style>
-                    </ItemsControl.ItemContainerStyle>
-                    <ItemsControl.Resources>
-                        <DataTemplate DataType="{x:Type vm:NodeViewModel}">
-                            <views:NodeView/>
-                        </DataTemplate>
-                        <DataTemplate DataType="{x:Type vm:ConnectionViewModel}">
-                            <views:ConnectionView/>
-                        </DataTemplate>
-                    </ItemsControl.Resources>
-                </ItemsControl>
+                <Border.Resources>
+                    <local:SumConverter x:Key="SumConverter"/>
+                </Border.Resources>
+                <ScrollViewer x:Name="ConsoleWrapper" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                    <ItemsControl ItemsSource="{Binding Path=WorkSpaceCollection, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" VerticalAlignment="Top" Background="#FF3E3E3E" IsHitTestVisible="True" Margin="0,0,0,-38.96">
+                        <ItemsControl.Height>
+                            <MultiBinding Converter="{StaticResource SumConverter}">
+                                <Binding Path="ActualHeight" ElementName="MainViewContainer"/>
+                                <Binding Path="TotalWorkSpaceHeight" UpdateSourceTrigger="PropertyChanged"/>
+                            </MultiBinding>
+                        </ItemsControl.Height>
+                        <ItemsControl.Width>
+                            <MultiBinding Converter="{StaticResource SumConverter}">
+                                <Binding Path="ActualWidth" ElementName="MainViewContainer"/>
+                                <Binding Path="TotalWorkSpaceWidth" UpdateSourceTrigger="PropertyChanged"/>
+                            </MultiBinding>
+                        </ItemsControl.Width>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Loaded">
+                                <i:InvokeCommandAction Command="{Binding SetWorkSpaceCommand}" CommandParameter="{Binding ElementName=WorkSpace}"></i:InvokeCommandAction>
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="MouseDown">
+                                <i:InvokeCommandAction Command="{Binding PlaceNodeCommand}" CommandParameter="{Binding ElementName=WorkSpace}" />
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="MouseUp">
+                                <i:InvokeCommandAction Command="{Binding StopConnectingCommand}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <Canvas/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemContainerStyle>
+                            <Style TargetType="ContentPresenter">
+                                <Setter Property="Canvas.Left" Value="{Binding Position.X}"/>
+                                <Setter Property="Canvas.Top" Value="{Binding Position.Y}"/>
+                            </Style>
+                        </ItemsControl.ItemContainerStyle>
+                        <ItemsControl.Resources>
+                            <DataTemplate DataType="{x:Type vm:NodeViewModel}">
+                                <views:NodeView/>
+                            </DataTemplate>
+                            <DataTemplate DataType="{x:Type vm:ConnectionViewModel}">
+                                <views:ConnectionView/>
+                            </DataTemplate>
+                        </ItemsControl.Resources>
+                    </ItemsControl>
+                </ScrollViewer>
             </Border>
 
 

@@ -19,5 +19,13 @@ namespace PlanBeh.Models
         [XmlArrayItem("Connection")]
         [JsonProperty("Connections")]
         public List<ConnectionModel> Connections { get; set; } = new List<ConnectionModel>();
+
+        [XmlElement("Height")]
+        [JsonProperty("Height")]
+        public float Height { get; set; }
+
+        [XmlElement("Width")]
+        [JsonProperty("Width")]
+        public float Width { get; set; }
     }
 }

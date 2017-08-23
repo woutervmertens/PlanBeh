@@ -29,19 +29,23 @@ namespace PlanBeh
         }
     }
 
-    //[ValueConversion(typeof(bool), typeof(Stroke))]
-    //public class BoolToConnectionActiveStroke : IValueConverter
-    //{
-    //    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    //    {
-    //        return (bool)value ? new BrushConverter().ConvertFrom("#FF00D1FF") : new SolidColorBrush(Colors.Black);
-    //    }
+    public class SumConverter : IMultiValueConverter
+    {
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            double sum = 0;
+            foreach (var item in values)
+            {
+                sum += System.Convert.ToDouble(item);
+            }
+            return sum;
+        }
 
-    //    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    //    {
-    //        throw new NotImplementedException();
-    //    }
-    //}
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 
     [ValueConversion(typeof(Enum), typeof(String))]
     public class EnumToStringConverter : IValueConverter
