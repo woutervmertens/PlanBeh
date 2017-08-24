@@ -437,7 +437,7 @@ namespace PlanBeh.ViewModels
         {
             NodeViewModel old = SelectedNode;
             SelectedNode = new NodeViewModel();
-            SelectedNode.Position = ((Border)obj).PointFromScreen(new Point(Mouse.GetPosition((Border)obj).X + 250, Mouse.GetPosition((Border)obj).Y + 250));
+            SelectedNode.Position = ((Border)obj).TransformToAncestor(System.Windows.Application.Current.MainWindow).Transform(new Point(150,150));
             SelectedNode.MainView = this;
             SelectedNode.WorkSpace = (Border) obj;
             SelectedNode.Node.ID = LogicIDCounter++;
@@ -488,17 +488,20 @@ namespace PlanBeh.ViewModels
         {
             if (SelectedNode != null)
             {
-                foreach (var con in ConnectionCollection)
+                for (int i = 0; i <= ConnectionCollection.Count - 1; i++)
                 {
+                    var con = ConnectionCollection[i];
                     if (con.OriginNode == SelectedNode || con.TargetNode == SelectedNode)
                     {
                         ConnectionCollection.Remove(con);
-                    }
+                    } 
                 }
                 NodeCollection.Remove(SelectedNode);
                 if (NodeCollection.Count > 1)
-                    SelectedNode = NodeCollection[NodeCollection.Count];
+                    SelectedNode = NodeCollection[NodeCollection.Count-1];
                 else SelectedNode = null;
+
+                UpdateActivities();
             }
         }
 
