@@ -437,7 +437,7 @@ namespace PlanBeh.ViewModels
         {
             NodeViewModel old = SelectedNode;
             SelectedNode = new NodeViewModel();
-            SelectedNode.Position = ((Border)obj).PointFromScreen(new Point(Mouse.GetPosition((Border)obj).X + 150, Mouse.GetPosition((Border)obj).Y + 250));
+            SelectedNode.Position = ((Border)obj).PointFromScreen(new Point(Mouse.GetPosition((Border)obj).X + 250, Mouse.GetPosition((Border)obj).Y + 250));
             SelectedNode.MainView = this;
             SelectedNode.WorkSpace = (Border) obj;
             SelectedNode.Node.ID = LogicIDCounter++;
@@ -456,6 +456,7 @@ namespace PlanBeh.ViewModels
                 UpdateActivities();
                 OnPropertyChanged("SelectedNode");
                 SelectedNode.SetSelectedNode();
+                if(old != null)old.SetNotSelected();
             }
             else
             {
@@ -463,31 +464,30 @@ namespace PlanBeh.ViewModels
             }
         }
 
-        public void PlaceNode(object obj)
-        {
-            if (!BlockTrigger)
-            {
-                //ActiveNode.ID = LogicIDCounter++;
-                //NodeViewModel temp = new NodeViewModel();
-                //temp.Node = ActiveNode;
-                //temp.Position = Mouse.GetPosition((Border)obj);
-                //temp.MainView = this;
-                //temp.WorkSpace = (Border)obj;
-                //NodeCollection.Add(temp);
+        //public void PlaceNode(object obj)
+        //{
+        //    if (!BlockTrigger)
+        //    {
+        //        //ActiveNode.ID = LogicIDCounter++;
+        //        //NodeViewModel temp = new NodeViewModel();
+        //        //temp.Node = ActiveNode;
+        //        //temp.Position = Mouse.GetPosition((Border)obj);
+        //        //temp.MainView = this;
+        //        //temp.WorkSpace = (Border)obj;
+        //        //NodeCollection.Add(temp);
 
-                if (WorkSpace == null)
-                    WorkSpace = (Border)obj;
+        //        if (WorkSpace == null)
+        //            WorkSpace = (Border)obj;
 
-                UpdateActivities();
-            }
-            BlockTrigger = false;
-        }
+        //        UpdateActivities();
+        //    }
+        //    BlockTrigger = false;
+        //}
 
         void DeleteSelectedNode()
         {
             if (SelectedNode != null)
             {
-                NodeCollection.Remove(SelectedNode);
                 foreach (var con in ConnectionCollection)
                 {
                     if (con.OriginNode == SelectedNode || con.TargetNode == SelectedNode)
@@ -495,6 +495,7 @@ namespace PlanBeh.ViewModels
                         ConnectionCollection.Remove(con);
                     }
                 }
+                NodeCollection.Remove(SelectedNode);
                 if (NodeCollection.Count > 1)
                     SelectedNode = NodeCollection[NodeCollection.Count];
                 else SelectedNode = null;

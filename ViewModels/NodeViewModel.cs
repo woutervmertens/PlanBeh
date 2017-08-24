@@ -36,6 +36,17 @@ namespace PlanBeh.ViewModels
             }
         }
 
+        public String NodeName
+        {
+            get { return Node.NodeName; }
+            set
+            {
+                Node.NodeName = value;
+                OnPropertyChanged("Node");
+                OnPropertyChanged("NodeName");
+            }
+        }
+
         private String _outlineColor;
         public String OutlineColor
         {
@@ -157,6 +168,7 @@ namespace PlanBeh.ViewModels
         public void Update()
         {
             OutlineColor = _nodedata.NodeColorHexes[(int)Node.Type];
+            OnPropertyChanged("NodeName");
         }
 
         private Point StartDragPos = new Point();
@@ -196,6 +208,7 @@ namespace PlanBeh.ViewModels
             if (node == null)
                 return;
             OutlineColor = _nodedata.NodeColorHexes[(int)node.Type];
+
         }
 
         public NodeViewModel()

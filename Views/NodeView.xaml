@@ -57,7 +57,7 @@
                 </i:Interaction.Triggers>
             </Border>
             <Border Margin="0,30,0,63">
-                <TextBlock TextWrapping="Wrap" Text="{Binding Node.NodeName}" HorizontalAlignment="Center" FontSize="14" Foreground="White" FontWeight="Bold" VerticalAlignment="Center"/>
+            <TextBlock TextWrapping="Wrap" Text="{Binding NodeName, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" FontSize="14" Foreground="White" FontWeight="Bold" VerticalAlignment="Center"/>
             </Border>
             <Border Margin="0,67,0,30" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock TextWrapping="Wrap" Text="{Binding Node.Type, Converter={StaticResource DefaultEnumToStringConverter}}" HorizontalAlignment="Center" FontSize="14" Foreground="White" VerticalAlignment="Center"/>
