@@ -24,5 +24,10 @@ namespace PlanBeh
         {
             InitializeComponent();
         }
+
+        public Point GetScrollPosition()
+        {
+            return new Point(Scroll.HorizontalOffset, Scroll.VerticalOffset);
+        }
     }
 }

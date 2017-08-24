@@ -54,6 +54,7 @@ namespace PlanBeh.ViewModels
                 UXMusingsBubblyBlue
         }
 
+        public MainWindow MainView { get; set; }
         private Border WorkSpace;
         private int LogicIDCounter = 0;
 
@@ -437,7 +438,8 @@ namespace PlanBeh.ViewModels
         {
             NodeViewModel old = SelectedNode;
             SelectedNode = new NodeViewModel();
-            SelectedNode.Position = ((Border)obj).TransformToAncestor(System.Windows.Application.Current.MainWindow).Transform(new Point(150,150));
+            Point scrollPoint = MainView.GetScrollPosition();
+            SelectedNode.Position = ((Border)obj).TransformToAncestor(System.Windows.Application.Current.MainWindow).Transform(new Point(scrollPoint.X + 150,scrollPoint.Y + 150));
             SelectedNode.MainView = this;
             SelectedNode.WorkSpace = (Border) obj;
             SelectedNode.Node.ID = LogicIDCounter++;
@@ -513,6 +515,7 @@ namespace PlanBeh.ViewModels
 
         public MainViewModel()
         {
+            MainView = (MainWindow)System.Windows.Application.Current.MainWindow;
             NodeCollection = new ObservableCollection<NodeViewModel>();
             ConnectionCollection = new ObservableCollection<ConnectionViewModel>();
 

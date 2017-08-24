@@ -46,7 +46,7 @@
                 <Border.Resources>
                     <local:SumConverter x:Key="SumConverter"/>
                 </Border.Resources>
-                <ScrollViewer x:Name="ConsoleWrapper" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <ScrollViewer x:Name="Scroll" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                     <ItemsControl ItemsSource="{Binding Path=WorkSpaceCollection, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" VerticalAlignment="Top" Background="#FF3E3E3E" IsHitTestVisible="True" Margin="0,0,0,-38.96">
                         <ItemsControl.Height>
                             <MultiBinding Converter="{StaticResource SumConverter}">
